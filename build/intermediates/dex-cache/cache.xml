@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/Users/ujjawalpathak/AndroidStudioProjects/MapsTutorial/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="1d59763c9de29555d958cee3638400d724d3d377">
+        <dex dex="/Users/ujjawalpathak/AndroidStudioProjects/MapsTutorial/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_4e503e7d11a39e4995c57566157a17a5250021a8/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/ujjawalpathak/.android/build-cache/7801c43bc9558851b113cf352bdb160aa56895dd/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="fcae52a60bc07924d370b4d376116cd8f8581f54">
+        <dex dex="/Users/ujjawalpathak/AndroidStudioProjects/MapsTutorial/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_e358240c1300151e79e946816b6d85e75759b35f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/ujjawalpathak/.android/build-cache/b2eee411cced33f41463475f038d554ec93a61bc/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="2430e711762a749feb00b3d64858ca4768251b9d">
+        <dex dex="/Users/ujjawalpathak/AndroidStudioProjects/MapsTutorial/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_4731a7906088064302c973eb378771de3556e2eb/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/ujjawalpathak/AndroidStudioProjects/MapsTutorial/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="/Users/ujjawalpathak/AndroidStudioProjects/MapsTutorial/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_3f5c9bb8ec99344723c346bcecab78d10efd377d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/ujjawalpathak/.android/build-cache/9ef041a48a91f40b4dfa8a77ebf95331675383db/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="70ffe00aaf049893f59d1dad57bd82992faa38ef">
+        <dex dex="/Users/ujjawalpathak/AndroidStudioProjects/MapsTutorial/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_be31d8698c29ad00b465b0369ecd3824ef26f7df/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/ujjawalpathak/.android/build-cache/f41d11c5cbd064fb745b4eceb9ee0576af0f9418/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="364364bf77b4a71afc5930fc3ae57b3f0eea637c">
+        <dex dex="/Users/ujjawalpathak/AndroidStudioProjects/MapsTutorial/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_dc2ba4eff01b72a9962cc4cddabb578296c046d0/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/ujjawalpathak/.android/build-cache/e66d99a0a9b0bf30f19f4a2779c07e73ee462bf5/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="41f47bbcd281fdb1e42e220220ab3bfa1da591e0">
+        <dex dex="/Users/ujjawalpathak/AndroidStudioProjects/MapsTutorial/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_74b8e54789749021eb441973cf5cd05842c1e199/classes.dex" />
+    </item>
+
+</items>
