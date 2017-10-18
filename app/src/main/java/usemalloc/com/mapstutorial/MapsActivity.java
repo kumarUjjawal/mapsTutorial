@@ -2,6 +2,7 @@ package usemalloc.com.mapstutorial;
 
 import android.*;
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.support.annotation.NonNull;
@@ -9,6 +10,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +26,8 @@ import com.google.android.gms.location.places.GeoDataClient;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceDetectionApi;
 import com.google.android.gms.location.places.PlaceDetectionClient;
+import com.google.android.gms.location.places.PlaceLikelihood;
+import com.google.android.gms.location.places.PlaceLikelihoodBufferResponse;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -68,10 +72,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     //For the selection of current place
     private static final int M_MAX_ENTRIES =  5;
-    private String placeName;
-    private String placeAddress;
-    private String placeAttributions;
-    private String placeLatLang;
+    private String[] placeName;
+    private String[] placeAddress;
+    private String[] placeAttributions;
+    private LatLng[] placeLatLang;
 
 
     @Override
@@ -230,7 +234,94 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void showCurrentPlace() {
+        if (mMap == null) {
+            return;
+        }
 
+        if (mLocationPermissionGranted) {
+
+            @SuppressWarnings("MissingPermission") final Task<PlaceLikelihoodBufferResponse> placeResult
+                    = placeDetectionClient.getCurrentPlace(null);
+
+            placeResult.addOnCompleteListener(new OnCompleteListener<PlaceLikelihoodBufferResponse>() {
+                @Override
+                public void onComplete(@NonNull Task<PlaceLikelihoodBufferResponse> task) {
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        PlaceLikelihoodBufferResponse likelyPlaces = task.getResult();
+                        int count;
+                        if (likelyPlaces.getCount() < M_MAX_ENTRIES) {
+                            count = likelyPlaces.getCount();
+                        } else {
+                           count = M_MAX_ENTRIES;
+                        }
+                        int i = 0;
+                        placeName = new String[count];
+                        placeAddress = new String[count];
+                        placeAttributions = new String[count];
+                        placeLatLang = new LatLng[count];
+
+                        for (PlaceLikelihood placeLikelihood : likelyPlaces) {
+                            // Build a list of likely places to show the user.
+                            placeName[i] = (String) placeLikelihood.getPlace().getName();
+                            placeAddress[i] = (String) placeLikelihood.getPlace()
+                                    .getAddress();
+                            placeAttributions[i] = (String) placeLikelihood.getPlace()
+                                    .getAttributions();
+                            placeLatLang[i] = placeLikelihood.getPlace().getLatLng();
+
+                            i++;
+                            if (i > (count - 1)) {
+                                break;
+                            }
+                        }
+                        likelyPlaces.release();
+
+                        openPlacesDialog();
+                    } else {
+                        Log.e(TAG,"Exception: %s",task.getException());
+                    }
+                }
+            });
+
+        } else {
+            Log.i(TAG,"The user did not grant permission");
+            mMap.addMarker(new MarkerOptions()
+                    .title(getString(R.string.default_info_title))
+                    .position(mDefaultLocation)
+                    .snippet(getString(R.string.default_info_snippet)));
+            getLocationPermission();
+        }
+    }
+
+    private void openPlacesDialog() {
+        // Ask the user to choose the place where they are now.
+        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // The "which" argument contains the position of the selected item.
+                LatLng markerLatLng = placeLatLang[which];
+                String markerSnippet = placeAddress[which];
+                if (placeAttributions[which] != null) {
+                    markerSnippet = markerSnippet + "\n" + placeAttributions[which];
+                }
+
+                // Add a marker for the selected place, with an info window
+                // showing information about that place.
+                mMap.addMarker(new MarkerOptions()
+                        .title(placeName[which])
+                        .position(markerLatLng)
+                        .snippet(markerSnippet));
+
+                // Position the map's camera at the location of the marker.
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markerLatLng,
+                        DEFAULT_ZOOM));
+            }
+        };
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle(R.string.pick_place)
+                .setItems(placeName, listener)
+                .show();
     }
 
 }
